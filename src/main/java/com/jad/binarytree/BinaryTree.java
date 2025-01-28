@@ -39,4 +39,13 @@ public class BinaryTree<E extends Comparable<E>> {
         if (this.root == null) return 0;
         return this.root.getHeight();
     }
+
+    public final boolean isAVL() {
+        return BinaryNode.isAVL(this.root);
+    }
+
+    public void testRotate() {
+        this.root.rotateLeftLeftChild();
+        this.root.rotateLeftLeftChild();
+    }
 }
