@@ -28,4 +28,9 @@ public class BinaryTree<E extends Comparable<E>> {
         if (this.root == null) return "";
         return this.root.toPrettyString();
     }
+
+    public String toTreeString() {
+        if (this.root == null) return "";
+        return this.root.toTreeString();
+    }
 }

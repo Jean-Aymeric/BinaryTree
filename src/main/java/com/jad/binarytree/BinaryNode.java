@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 class BinaryNode<E extends Comparable<E>> {
+    private static final String GAP_END_LEFT = "╰";
+    private static final String GAP_END_RIGHT = "└";
+    private static final String GAP = " ";
     private E value;
     private BinaryNode<E> left;
     private BinaryNode<E> right;
@@ -48,5 +51,23 @@ class BinaryNode<E extends Comparable<E>> {
                 (((this.left == null) && (this.right == null)) ? "" :
                         "(" + ((this.left == null) ? "-" : this.left.toPrettyString()) +
                                 ", " + ((this.right == null) ? "-" : this.right.toPrettyString()) + ")") + "]";
+    }
+
+    String toTreeString() {
+        return this.toTreeString(0, true);
+    }
+
+    String toTreeString(final int gap, final boolean isLeft) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (gap >= 1) {
+            stringBuilder.append(BinaryNode.GAP.repeat(gap - 1));
+            stringBuilder.append(isLeft ? BinaryNode.GAP_END_LEFT : BinaryNode.GAP_END_RIGHT);
+        }
+
+        stringBuilder.append(this.value);
+        stringBuilder.append("\n");
+        if (this.left != null) stringBuilder.append(this.left.toTreeString(gap + 1, true));
+        if (this.right != null) stringBuilder.append(this.right.toTreeString(gap + 1, false));
+        return stringBuilder.toString();
     }
 }
