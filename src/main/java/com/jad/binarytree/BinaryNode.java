@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 class BinaryNode<E extends Comparable<E>> {
-    private static final String GAP_START_LEFT = "╰";
-    private static final String GAP_START_RIGHT = "└";
+    private static final String GAP_START_LEFT = "╭";
+    private static final String GAP_START_RIGHT = "╰";
     private static final String GAP = " ";
     private static final String GAP_END = "─";
     private E value;
@@ -16,6 +16,11 @@ class BinaryNode<E extends Comparable<E>> {
         this.value = value;
         this.left = null;
         this.right = null;
+    }
+
+    private static <E extends Comparable<E>> int getHeight(final BinaryNode<E> child) {
+        if (child == null) return 0;
+        return child.getHeight();
     }
 
     BinaryNode<E> add(final E value) {
@@ -60,16 +65,27 @@ class BinaryNode<E extends Comparable<E>> {
 
     String toTreeString(final int gap, final boolean isLeft) {
         StringBuilder stringBuilder = new StringBuilder();
+
+
+        if (this.left != null) stringBuilder.append(this.left.toTreeString(gap + 1, true));
         if (gap >= 1) {
             stringBuilder.append(BinaryNode.GAP.repeat((gap - 1) * 2));
             stringBuilder.append(isLeft ? BinaryNode.GAP_START_LEFT : BinaryNode.GAP_START_RIGHT);
             stringBuilder.append(BinaryNode.GAP_END);
         }
-
         stringBuilder.append(this.value);
         stringBuilder.append("\n");
-        if (this.left != null) stringBuilder.append(this.left.toTreeString(gap + 1, true));
         if (this.right != null) stringBuilder.append(this.right.toTreeString(gap + 1, false));
+
         return stringBuilder.toString();
+    }
+
+    int getHeight() {
+        return 1 + Math.max(BinaryNode.getHeight(this.left),
+                            BinaryNode.getHeight(this.right));
+    }
+
+    int getBalanceFactor() {
+        return 0;
     }
 }

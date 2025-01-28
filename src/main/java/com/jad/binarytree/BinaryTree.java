@@ -33,4 +33,9 @@ public class BinaryTree<E extends Comparable<E>> {
         if (this.root == null) return "";
         return this.root.toTreeString();
     }
+
+    public int getHeight() {
+        if (this.root == null) return 0;
+        return this.root.getHeight();
+    }
 }
