@@ -3,13 +3,14 @@ package com.jad.binarytree;
 public class BinaryTree<E extends Comparable<E>> {
     private BinaryNode<E> root;
 
-    public void add(final E... values) {
+    @SafeVarargs
+    public final void add(final E... values) {
         for (final E value : values) {
             this.add(value);
         }
     }
 
-    public void add(final E value) {
+    public final void add(final E value) {
         if (this.root == null) {
             this.root = new BinaryNode<>(value);
         } else {
@@ -18,23 +19,23 @@ public class BinaryTree<E extends Comparable<E>> {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "BinaryTree{" +
                 "root=" + this.root +
                 '}';
     }
 
-    public String toPrettyString() {
+    public final String toPrettyString() {
         if (this.root == null) return "";
         return this.root.toPrettyString();
     }
 
-    public String toTreeString() {
+    public final String toTreeString() {
         if (this.root == null) return "";
         return this.root.toTreeString();
     }
 
-    public int getHeight() {
+    public final int getHeight() {
         if (this.root == null) return 0;
         return this.root.getHeight();
     }
